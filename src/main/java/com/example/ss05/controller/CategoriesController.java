@@ -23,6 +23,17 @@ public class CategoriesController extends HttpServlet {
         String action = request.getParameter("action");
         if (action.equals("findAll")) {
             findAllCategories(request, response);
+        } else if (action.equals("initUpdate")) {
+            int catalogId = Integer.parseInt(request.getParameter("catalogId"));
+            Categories catalog = categoriesService.findById(catalogId);
+            if (catalog != null) {
+                request.setAttribute("catalog", catalog);
+                request.getRequestDispatcher("view/updateCatalog.jsp").forward(request, response);
+            }
+        } else if (action.equals("delete")) {
+            int catalogId = Integer.parseInt(request.getParameter("catalogId"));
+            boolean result = categoriesService.delete(catalogId);
+            redirectBasedOnResult(result, request, response);
         }
     }
 
@@ -42,11 +53,23 @@ public class CategoriesController extends HttpServlet {
             catalog.setDescription(request.getParameter("description"));
             catalog.setStatus(Boolean.parseBoolean(request.getParameter("status")));
             boolean result = categoriesService.save(catalog);
-            if (result) {
-                findAllCategories(request, response);
-            } else {
-                request.getRequestDispatcher("view/error.jsp").forward(request, response);
-            }
+            redirectBasedOnResult(result, request, response);
+        }else if (action.equals("Update")) {
+            Categories catalog = new Categories();
+            catalog.setCatalogId(Integer.parseInt(request.getParameter("catalogId")));
+            catalog.setCatalogName(request.getParameter("catalogName"));
+            catalog.setDescription(request.getParameter("description"));
+            catalog.setStatus(Boolean.parseBoolean(request.getParameter("status")));
+            boolean result = categoriesService.update(catalog);
+            redirectBasedOnResult(result, request, response);
+        }
+    }
+
+    private void redirectBasedOnResult(boolean result, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        if (result) {
+            findAllCategories(request, response);
+        } else {
+            request.getRequestDispatcher("view/error.jsp").forward(request, response);
         }
     }
 }

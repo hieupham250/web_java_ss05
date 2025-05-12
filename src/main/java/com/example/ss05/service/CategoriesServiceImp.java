@@ -22,4 +22,19 @@ public class CategoriesServiceImp implements CategoriesService {
     public boolean save(Categories catalog) {
         return categoriesDAO.save(catalog);
     }
+
+    @Override
+    public Categories findById(int id) {
+        return categoriesDAO.findById(id);
+    }
+
+    @Override
+    public boolean update(Categories catalog) {
+        return categoriesDAO.update(catalog);
+    }
+
+    @Override
+    public boolean delete(int catalogId) {
+        return categoriesDAO.delete(catalogId);
+    }
 }

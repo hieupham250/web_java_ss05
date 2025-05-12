@@ -23,7 +23,10 @@
       <td>${catalog.catalogName}</td>
       <td>${catalog.description}</td>
       <td>${catalog.status}</td>
-      <td></td>
+      <td>
+        <a href="<%=request.getContextPath()%>/CategoriesController?catalogId=${catalog.catalogId}&&action=initUpdate">Update</a>
+        <a href="<%=request.getContextPath()%>/CategoriesController?catalogId=${catalog.catalogId}&&action=delete">Delete</a>
+      </td>
     </tr>
   </c:forEach>
   </tbody>

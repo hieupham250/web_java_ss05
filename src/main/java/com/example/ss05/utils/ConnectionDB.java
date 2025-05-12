@@ -6,6 +6,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class ConnectionDB {
+    private static final String DRIVER = "com.mysql.cj.jdbc.Driver";
     private static String url = "jdbc:mysql://localhost:3306/JSP_Servlet_DB";
     private static String user = "root";
     private static String password = "12345678";
@@ -13,9 +14,10 @@ public class ConnectionDB {
     public static Connection openConnection() {
         Connection conn = null;
         try {
+            Class.forName(DRIVER);
             conn = DriverManager.getConnection(url, user, password);
         } catch (Exception e) {
-            e.fillInStackTrace();
+            e.printStackTrace();
         }
         return conn;
     }
