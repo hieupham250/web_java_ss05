@@ -15,5 +15,6 @@
 <br/>
 <a href="contacts">Bài 10</a>
 <br/>
+<a href="CategoriesController?action=findAll">Bài 11</a>
 </body>
 </html>
